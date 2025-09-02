@@ -1,4 +1,5 @@
 import 'package:todo/core/resources/datastate.dart';
+import 'package:todo/features/auth/data/models/user_model.dart';
 import 'package:todo/features/auth/domain/entities/user_entity.dart';
 
 abstract class UserRepository {
@@ -15,5 +16,5 @@ abstract class UserRepository {
   Future<Datastate<bool>> isNewUser();
 
   //method to create a new user
-  Future<Datastate<bool>> createUser(UserEntity user);
+  Future<Datastate<bool>> createUser(UserModel user);
 }
