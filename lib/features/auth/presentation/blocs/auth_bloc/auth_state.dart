@@ -16,23 +16,23 @@ abstract class AuthState extends Equatable {
 }
 
 //intial state
-class InitialState extends AuthState {
-  const InitialState();
+class AuthInitialState extends AuthState {
+  const AuthInitialState();
 }
 
 //loading state
-class LoadingState extends AuthState {
-  const LoadingState();
+class AuthLoadingState extends AuthState {
+  const AuthLoadingState();
 }
 
 //success state
-class SuccessState extends AuthState {
-  const SuccessState(UserModel? user, bool? response)
+class AuthSuccessState extends AuthState {
+  const AuthSuccessState(UserModel? user, bool? response)
     : super(errorMessage: null, user: user, response: response);
 }
 
 //error state
-class ErrorState extends AuthState {
-  const ErrorState(String errorMessage)
+class AuthErrorState extends AuthState {
+  const AuthErrorState(String errorMessage)
     : super(errorMessage: errorMessage, user: null, response: null);
 }

@@ -1,6 +1,5 @@
 import 'package:todo/core/resources/datastate.dart';
 import 'package:todo/features/todo/data/models/todo_model.dart';
-import 'package:todo/features/todo/domain/entities/todo_enity.dart';
 
 abstract class TodoRepository {
   //method to get all todo

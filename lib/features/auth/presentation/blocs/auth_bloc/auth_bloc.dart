@@ -23,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
     this._checkForNewUserUsecase,
     this._createUserUsecase,
     this._getCurrentUserUsecase,
-  ) : super(InitialState()) {
+  ) : super(AuthInitialState()) {
     //
     on<SignInWithGoogleEvent>(onSignInEventCall);
     //
@@ -43,36 +43,36 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     //emit loading state
-    emit(LoadingState());
+    emit(AuthLoadingState());
 
     //call api
     final datastate = await _loginWithGoogleUsecase.call(null);
 
     //check
     if (datastate is DataSuccess) {
-      emit(SuccessState(null, datastate.data));
+      emit(AuthSuccessState(null, datastate.data));
     }
 
     if (datastate is DataFailed) {
-      emit(ErrorState(datastate.message!));
+      emit(AuthErrorState(datastate.message!));
     }
   }
 
   //on signout event call
   void onSignOutEventCall(SignOutEvent event, Emitter<AuthState> emit) async {
     //loading state
-    emit(LoadingState());
+    emit(AuthLoadingState());
 
     //call api
     final datastate = await _signoutUsecase.call(null);
 
     //check
     if (datastate is DataSuccess) {
-      emit(SuccessState(null, datastate.data));
+      emit(AuthSuccessState(null, datastate.data));
     }
 
     if (datastate is DataFailed) {
-      emit(ErrorState(datastate.message!));
+      emit(AuthErrorState(datastate.message!));
     }
   }
 
@@ -82,14 +82,14 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     //loading state
-    emit(LoadingState());
+    emit(AuthLoadingState());
 
     //call api
     final datastate = await _getCurrentUserUsecase.call(null);
 
     //check
     if (datastate is DataSuccess) {
-      emit(SuccessState(datastate.data, null));
+      emit(AuthSuccessState(datastate.data, null));
     }
   }
 
@@ -99,18 +99,18 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     //loading state
-    emit(LoadingState());
+    emit(AuthLoadingState());
 
     //call api
     final datastate = await _checkForNewUserUsecase.call(null);
 
     //check
     if (datastate is DataSuccess) {
-      emit(SuccessState(null, datastate.data));
+      emit(AuthSuccessState(null, datastate.data));
     }
 
     if (datastate is DataFailed) {
-      emit(ErrorState(datastate.message!));
+      emit(AuthErrorState(datastate.message!));
     }
   }
 
@@ -120,18 +120,18 @@ class AuthBloc extends Bloc<AuthEvents, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     //loading state
-    emit(LoadingState());
+    emit(AuthLoadingState());
 
     //call api
     final datastate = await _createUserUsecase.call(event.user);
 
     //check
     if (datastate is DataSuccess) {
-      emit(SuccessState(null, datastate.data));
+      emit(AuthSuccessState(null, datastate.data));
     }
 
     if (datastate is DataFailed) {
-      emit(ErrorState(datastate.message!));
+      emit(AuthErrorState(datastate.message!));
     }
   }
 }
