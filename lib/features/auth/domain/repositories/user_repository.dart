@@ -1,6 +1,5 @@
 import 'package:todo/core/resources/datastate.dart';
 import 'package:todo/features/auth/data/models/user_model.dart';
-import 'package:todo/features/auth/domain/entities/user_entity.dart';
 
 abstract class UserRepository {
   //method to sign in with google
@@ -10,7 +9,7 @@ abstract class UserRepository {
   Future<Datastate<bool>> signOut();
 
   //method to get current user
-  Future<Datastate<UserEntity>> getCurrentUser();
+  Future<Datastate<UserModel>> getCurrentUser();
 
   //method to check for new user
   Future<Datastate<bool>> isNewUser();
