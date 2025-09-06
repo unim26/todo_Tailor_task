@@ -16,7 +16,7 @@ This is a **Flutter-based Todo App** that integrates **Supabase** for user authe
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/unim26/todo-app.git
+git clone https://github.com/unim26/todo_Tailor_task
 cd todo-app
 ````
 
