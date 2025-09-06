@@ -8,7 +8,12 @@ class TodoDataServices {
   //meyhod to get all todos
   Future<List<Map<String, dynamic>>?> getTodos() async {
     try {
-      return await supabaseClient.from('Todos').select('*');
+      final user = supabaseClient.auth.currentUser;
+      return await supabaseClient
+          .from('Todos')
+          .select('*')
+          .eq('user_id', user!.id)
+          .order('id', ascending: false);
     } catch (e) {
       print('Error in getting todos: $e');
       return null;

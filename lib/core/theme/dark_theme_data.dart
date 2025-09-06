@@ -20,8 +20,8 @@ static final ColorScheme darkColorScheme = ColorScheme.dark(
   secondary: Color(0xFFD4E157),    // Lime
   surface: Color(0xFF2E7D32),      // Stronger dark green
   error: Color(0xFFB00020),        // Red
-  onPrimary: Colors.white,
-  onSecondary: Colors.black,
+  onPrimary: Colors.black,
+  onSecondary: Colors.white,
   onSurface: Colors.white,
   onError: Colors.white,
 );

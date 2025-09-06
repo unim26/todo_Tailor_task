@@ -15,9 +15,9 @@ class TodoModel extends TodoEnity {
   factory TodoModel.fromJson(Map<String, dynamic> json) => TodoModel(
     id: json['id'],
     userId: json['user_id'],
-    title: json['title'] as String,
-    isCompleted: json['isCompleted'] as bool,
-    deadline: json['deadline'] as DateTime,
+    title: json['title'] ?? '',
+    isCompleted: json['is_completed'] ?? false,
+    deadline: json['deadline'] ?? '',
   );
 
   //to json method
@@ -25,12 +25,12 @@ class TodoModel extends TodoEnity {
     'id': id,
     'user_id': _getCurrentUserId(),
     'title': title,
-    'isCompleted': isCompleted,
+    'is_completed': isCompleted,
     'deadline': deadline,
   };
 
   //method to get current user id
-  String? _getCurrentUserId()  {
-   return   Supabase.instance.client.auth.currentUser?.id;
+  String? _getCurrentUserId() {
+    return Supabase.instance.client.auth.currentUser?.id;
   }
 }

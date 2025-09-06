@@ -16,4 +16,7 @@ abstract class UserRepository {
 
   //method to create a new user
   Future<Datastate<bool>> createUser(UserModel user);
+
+  //method to update user profile
+  Future<Datastate<bool>> updateFcmToken(String fcmToken);
 }

@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void appSnacBar(BuildContext context, {String? message, String? type}) {
+void appSnacBar(
+  BuildContext context, {
+  String? message,
+  String? type,
+  SnackPosition snacPosition = SnackPosition.BOTTOM,
+}) {
   Get.snackbar(
     type ?? 'Alert',
     message ?? 'Something happened',
+
     animationDuration: Duration(milliseconds: 300),
     backgroundColor: _getSnackbarColor(type),
     borderRadius: 13,
-    colorText: Colors.white,
-    dismissDirection: DismissDirection.down,
+    colorText: Colors.black,
+    dismissDirection:
+        snacPosition == SnackPosition.TOP
+            ? DismissDirection.up
+            : DismissDirection.down,
+
     icon: _getSnackbarIcon(type),
-    snackPosition: SnackPosition.BOTTOM,
+    snackPosition: snacPosition,
     snackStyle: SnackStyle.FLOATING,
     margin: EdgeInsets.all(20),
   );
@@ -23,6 +33,8 @@ Color _getSnackbarColor(String? type) {
       return Colors.amber.shade700;
     case 'alert':
       return Colors.blue.shade600;
+    case 'notification':
+      return Colors.white;
     case 'success':
       return Colors.green.shade600;
     case 'error':
@@ -37,6 +49,8 @@ Icon _getSnackbarIcon(String? type) {
       return Icon(Icons.warning, color: Colors.white);
     case 'alert':
       return Icon(Icons.info, color: Colors.white);
+    case 'notification':
+      return Icon(Icons.notifications, color: Colors.black);
     case 'success':
       return Icon(Icons.thumb_up, color: Colors.white);
     case 'error':

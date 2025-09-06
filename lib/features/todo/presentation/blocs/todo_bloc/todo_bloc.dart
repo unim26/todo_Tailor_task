@@ -84,15 +84,16 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     DeleteTodoEvent event,
     Emitter<TodoState> emit,
   ) async {
-    //loading
-    emit(TodoLoadingState());
+    // //loading
+    // emit(TodoLoadingState());
 
     //call api
     final datastate = await _deleteTodoUsecase.call(event.id);
 
     //check
     if (datastate is DataSuccess) {
-      emit(TodoSuccessState(state.todos, datastate.data));
+      final d = await _getTodoUsecase.call(null);
+      emit(TodoSuccessState(d.data, datastate.data));
     }
 
     if (datastate is DataFailed) {
@@ -105,8 +106,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     ToggleTodoStatusEvent event,
     Emitter<TodoState> emit,
   ) async {
-    //loading state
-    emit(TodoLoadingState());
+    // //loading state
+    // emit(TodoLoadingState());
 
     //call api
     final datastate = await _toggleTodoComplitionUsecase.call({
@@ -116,7 +117,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     //check
     if (datastate is DataSuccess) {
-      emit(TodoSuccessState(state.todos, datastate.data));
+      final d = await _getTodoUsecase.call(null);
+      emit(TodoSuccessState(d.data, datastate.data));
     }
 
     if (datastate is DataFailed) {
@@ -134,7 +136,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     //check
     if (datastate is DataSuccess) {
-      emit(TodoSuccessState(state.todos, datastate.data));
+      final d = await _getTodoUsecase.call(null);
+      emit(TodoSuccessState(d.data, datastate.data));
     }
 
     if (datastate is DataFailed) {

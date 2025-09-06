@@ -16,9 +16,9 @@ class UserModel extends UserEntity {
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     id: json['id'],
     fcmToken: json['fcm_token'],
-    email: json['email'] as String,
-    name: json['name'] as String,
-    photoUrl: json['photo_url'] as String,
+    email: json['email'] ?? '',
+    name: json['name'] ?? '',
+    photoUrl: json['photo_url'] ?? '',
   );
 
   //tojson method

@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:todo/features/auth/data/models/user_model.dart';
 
-abstract class AuthState extends Equatable {
+abstract class UserAuthState extends Equatable {
   //variables
   final bool? response;
   final UserModel? user;
   final String? errorMessage;
 
   //constructure
-  const AuthState({this.errorMessage, this.response, this.user});
+  const UserAuthState({this.errorMessage, this.response, this.user});
 
   //props
   @override
@@ -16,23 +16,28 @@ abstract class AuthState extends Equatable {
 }
 
 //intial state
-class AuthInitialState extends AuthState {
+class AuthInitialState extends UserAuthState {
   const AuthInitialState();
 }
 
 //loading state
-class AuthLoadingState extends AuthState {
+class AuthLoadingState extends UserAuthState {
   const AuthLoadingState();
 }
 
+//signout state
+class AuthSignOutState extends UserAuthState {
+  const AuthSignOutState();
+}
+
 //success state
-class AuthSuccessState extends AuthState {
+class AuthSuccessState extends UserAuthState {
   const AuthSuccessState(UserModel? user, bool? response)
     : super(errorMessage: null, user: user, response: response);
 }
 
 //error state
-class AuthErrorState extends AuthState {
+class AuthErrorState extends UserAuthState {
   const AuthErrorState(String errorMessage)
     : super(errorMessage: errorMessage, user: null, response: null);
 }

@@ -6,7 +6,7 @@ class TodoEnity extends Equatable {
   final dynamic userId;
   final String? title;
   final bool? isCompleted;
-  final DateTime deadline;
+  final String deadline;
 
   //constructer
   const TodoEnity({

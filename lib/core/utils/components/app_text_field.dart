@@ -21,16 +21,14 @@ class AppTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       onChanged: onChanged,
-      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-        color: Theme.of(context).colorScheme.onPrimary,
-      ),
+      style: Theme.of(context).textTheme.titleMedium,
       keyboardType: keyboardType,
       cursorErrorColor: Colors.red,
       cursorOpacityAnimates: true,
       cursorRadius: Radius.circular(15),
 
       decoration: InputDecoration(
-        filled: true,
+        // filled: true,
         // fillColor: Theme.of(context).colorScheme.tertiary,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         hintText: hintText,

@@ -7,12 +7,17 @@ environment:
   sdk: ^3.7.2
 
 dependencies:
-  bloc: ^9.0.0
+  datetime_picker_formfield_new: ^2.1.0
   equatable: ^2.0.7
+  firebase_core: ^4.1.0
+  firebase_messaging: ^16.0.1
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
   flutter_dotenv: ^6.0.0
+  font_awesome_flutter: ^10.9.1
   get: ^4.7.2
+  get_it: ^8.2.0
   google_sign_in: ^7.1.1
   supabase_flutter: ^2.10.0
 

@@ -11,9 +11,9 @@ class UserDataService {
     try {
       //client id and server id from google cloud console
       final String clientId =
-          '597482954726-b4s78hl4c1i2both0b8q0pkqv6lalsf2.apps.googleusercontent.com';
+          '1051586636236-o7l4dkbuh6n0qfplp772oo1mp48mvvfa.apps.googleusercontent.com';
       final String serverId =
-          '597482954726-el49nr0cro58psijrcotnmh2t2b32867.apps.googleusercontent.com';
+          '1051586636236-ghsun1i09ka5e8sl2eiovr2rbd9q6tvg.apps.googleusercontent.com';
 
       //initialize google sign in
       final GoogleSignIn googleSignIn = GoogleSignIn.instance;
@@ -96,5 +96,22 @@ class UserDataService {
       print('Error creating user: $e');
       return false;
     }
+
   }
+    //method to updade fcm token to user profile
+    Future<bool> updateFcmToken(String fcmToken) async {
+      try {
+        final User? currentUser = supabaseClient.auth.currentUser;
+
+        await supabaseClient
+            .from('Users')
+            .update({'fcm_token': fcmToken})
+            .eq('id', currentUser!.id);
+
+        return true;
+      } catch (e) {
+        print('Error updating FCM token: $e');
+        return false;
+      }
+    }
 }
