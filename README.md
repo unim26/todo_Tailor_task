@@ -1,14 +1,14 @@
-Here's the full README in Markdown format:
+
 
 ````markdown
-# Todo App with Supabase Authentication, Firestore & Firebase Cloud Messaging
+# Todo App with Supabase Authentication and database, Firestore & Firebase Cloud Messaging
 
-This is a **Flutter-based Todo App** that integrates **Supabase** for user authentication, **Firestore** for storing todos, and **Firebase Cloud Messaging (FCM)** for sending notifications about todo deadlines.
+This is a **Flutter-based Todo App** that integrates **Supabase** for user authentication and database, and **Firebase Cloud Messaging (FCM)** for sending notifications about todo deadlines.
 
 ## Features
 
-- **Supabase Authentication**: Sign up/login using email and password.
-- **Firestore Database**: Store and manage todos with deadlines.
+- **Supabase Authentication**: Sign up/login using google account.
+- **Supabase Database**: Store and manage todos with deadlines.
 - **Firebase Cloud Messaging (FCM)**: Receive notifications 1 hour before a todo’s deadline.
 
 ## Steps to Use
@@ -16,7 +16,7 @@ This is a **Flutter-based Todo App** that integrates **Supabase** for user authe
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/todo-app.git
+git clone https://github.com/unim26/todo-app.git
 cd todo-app
 ````
 
@@ -77,6 +77,6 @@ flutter build ios
 
 ```
 
-You can copy this directly into your `README.md` file, and it should work properly with all necessary steps for setting up and running the project.
+
 ```
 
