@@ -75,8 +75,5 @@ For iOS:
 flutter build ios
 ```
 
-```
 
-
-```
 
