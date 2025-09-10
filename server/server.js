@@ -108,5 +108,5 @@ cron.schedule('* * * * *', async () => {
 });
 
 app.listen(3000, () => {
-  console.log('Notification backend running on port 3000');
+  console.log('Notification backend for todo is running');
 });
