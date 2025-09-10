@@ -37,18 +37,18 @@ cd todo_Tailor_task
 - Navigate to `server/` directory  
 - Create a `.env` file with Supabase and Firebase credentials  
 - Run:  
-  ```
-  npm install
-  node server.js
-  ```
+```
+ npm install
+ node server.js
+```
 
 3. **Frontend**  
 - Navigate to `client/todo/` directory  
-- Run:  
-  ```
-  flutter pub get
-  flutter run
-  ```
+- Run:
+```
+ flutter pub get
+ flutter run
+```
 - Configure your Supabase and Firebase keys in the Flutter app as needed
 
 ---
