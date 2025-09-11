@@ -18,6 +18,11 @@ admin.initializeApp({
 const app = express();
 app.use(express.json());
 
+//root path it will be  used  for awake call
+app.use('/',(req,res) => {
+  console.log("Awake call from client');
+              }
+
 // Helper to convert deadline string ("4:44 AM") to today's Date object
 function getTodayDateForTime(timeString) {
   const [time, modifier] = timeString.split(' ');
