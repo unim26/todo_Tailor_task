@@ -22,7 +22,7 @@ app.use(express.json());
 app.use('/',(req,res) => {
   console.log('Awake call from client');
               res.status(200).send({"message":"Running"});
-              }
+              });
 
 // Helper to convert deadline string ("4:44 AM") to today's Date object
 function getTodayDateForTime(timeString) {
