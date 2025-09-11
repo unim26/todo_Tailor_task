@@ -45,7 +45,7 @@ cron.schedule('* * * * *', async () => {
     .eq('is_noti_sent', false);
 
 
-console.log(todos);
+
 
   if (error) {
     console.error('Error fetching todos:', error);
@@ -93,7 +93,7 @@ console.log(todos);
       };
 
       try {
-        console.error('Sending notification ');
+       
         await admin.messaging().send(message);
 
         // Insert notification record
@@ -107,7 +107,7 @@ console.log(todos);
         // Update todo as notified
         await supabase.from('Todos').update({ is_noti_sent: true }).eq('id', todo.id);
 
-        console.error(' sent notification');
+       
       } catch (sendError) {
         console.error('Error sending notification:', sendError);
       }
