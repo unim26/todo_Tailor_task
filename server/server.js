@@ -45,6 +45,8 @@ cron.schedule('* * * * *', async () => {
     .eq('is_noti_sent', false);
 
 
+console.log(todos);
+
   if (error) {
     console.error('Error fetching todos:', error);
     return;
