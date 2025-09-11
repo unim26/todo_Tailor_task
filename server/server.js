@@ -91,6 +91,7 @@ cron.schedule('* * * * *', async () => {
       };
 
       try {
+        console.error('Sending notification ');
         await admin.messaging().send(message);
 
         // Insert notification record
@@ -103,6 +104,8 @@ cron.schedule('* * * * *', async () => {
 
         // Update todo as notified
         await supabase.from('Todos').update({ is_noti_sent: true }).eq('id', todo.id);
+
+        console.error(' sent notification');
       } catch (sendError) {
         console.error('Error sending notification:', sendError);
       }
