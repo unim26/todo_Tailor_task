@@ -5,7 +5,7 @@ import cron from 'node-cron';
 import dotenv from 'dotenv';
 
 dotenv.config();
-
+//Helper
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 
@@ -32,6 +32,8 @@ function getTodayDateForTime(timeString) {
   if (modifier === 'AM' && hours === 12) hours = 0;
 
   const now = new Date();
+
+  
 
   //the given time will be as user wants to be get notified so we will set it one hour before so that we can notify user before an hour
   return new Date(
