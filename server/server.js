@@ -9,8 +9,10 @@ dotenv.config();
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 
+//parsing json 
 const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
 
+//intializing firebase admin
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -21,8 +23,8 @@ app.use(express.json());
 //root path it will be  used  for awake call
 app.use('/',(req,res) => {
   console.log('Awake call from client');
-              res.status(200).send({"message":"Running"});
-              });
+  res.status(200).send({"message":"Running"});
+});
 
 // Helper to convert deadline string ("4:44 AM") to today's Date object
 function getTodayDateForTime(timeString) {
@@ -31,9 +33,7 @@ function getTodayDateForTime(timeString) {
   if (modifier === 'PM' && hours !== 12) hours += 12;
   if (modifier === 'AM' && hours === 12) hours = 0;
 
-  const now = new Date();
-
-  
+  const now = new Date();   
 
   //the given time will be as user wants to be get notified so we will set it one hour before so that we can notify user before an hour
   return new Date(
@@ -43,7 +43,7 @@ function getTodayDateForTime(timeString) {
 }
 
 // Cron job to run every minute
-cron.schedule('* * * * *', async () => {
+cron.schedule('*/5 * * * *', async () => {
   console.log('Checking todos for notifications...');
 
   const { data: todos, error } = await supabase
@@ -86,7 +86,7 @@ cron.schedule('* * * * *', async () => {
         token: user.fcm_token,
         notification: {
           title: '⏰ Todo Deadline!',
-          body: `⚡ Time’s ticking! Finish your todo -  ${todo.title} before it’s too late! ⏳`,
+          body: `⚡ Time’s ticking! Finish your todo -  ${todo.title} \n before it’s too late! ⏳`,
         },
         android:{
           notification: {
