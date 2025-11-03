@@ -28,39 +28,45 @@ app.use('/',(req,res) => {
 
 // Helper to convert deadline string ("4:44 AM") to today's Date object
 function getTodayDateForTime(timeString) {
+  //get time from string
   const [time, modifier] = timeString.split(' ');
   let [hours, minutes] = time.split(':').map(Number);
   if (modifier === 'PM' && hours !== 12) hours += 12;
   if (modifier === 'AM' && hours === 12) hours = 0;
 
+  //get dealyTime from string 
+  let [dealyTime, horm] = time.split(' ').map(Number);
+
   const now = new Date();   
 
   //the given time will be as user wants to be get notified so we will set it one hour before so that we can notify user before an hour
-  return new Date(
-    now.getFullYear(), now.getMonth(), now.getDate(),
-    hours -1, minutes, 0, 0
-  );
+  if(horm == 'H'){
+    return new Date(
+      now.getFullYear(), now.getMonth(), now.getDate(),
+      hours - dealyTime, minutes, 0, 0
+    );
+  } else if(horm == 'M'){
+    return new Date(
+      now.getFullYear(), now.getMonth(), now.getDate(),
+      hours, minutes - dealyTime, 0, 0
+    );
+  }
 }
 
 // Cron job to run every minute
-cron.schedule('*/5 * * * *', async () => {
-  console.log('Checking todos for notifications...');
+cron.schedule('* * * * *', async () => {
 
   const { data: todos, error } = await supabase
     .from('Todos')
-    .select('id, title, user_id, deadline, is_noti_sent, is_completed')
+    .select('id, title, user_id, deadline, is_noti_sent, is_completed,delay')
     .eq('is_completed', false)
     .eq('is_noti_sent', false);
-
-
-
 
   if (error) {
     console.error('Error fetching todos:', error);
     return;
   }
   if (!todos || todos.length === 0) {
-    console.log('No todos pending.');
     return;
   }
 
@@ -81,44 +87,49 @@ cron.schedule('*/5 * * * *', async () => {
         console.warn(`No FCM token for user_id ${todo.user_id}, skipping`);
         continue;
       }
-
-      const message = {
-        token: user.fcm_token,
-        notification: {
-          title: '⏰ Todo Deadline!',
-          body: `⚡ Time’s ticking! Finish your todo -  ${todo.title} \n before it’s too late! ⏳`,
-        },
-        android:{
+      
+      //we have arry of fcm tokens so loop over all fcm tokens and send to each
+      for(const fcmToken of user.fcm_token){
+        const message = {
+          token: fcmToken,
           notification: {
-            channelId: "todo_reminders",
-            sound: "default",
-            defaultVibrateTimings: true,
+            title: '⏰ Todo Deadline!',
+            body: `⚡ Time’s ticking! Finish your todo -  ${todo.title} \n before it’s too late! ⏳`,
           },
-        },
-        data: {
-          todoId: todo.id.toString(),
-        },
-      };
-
-      try {
-       
-        await admin.messaging().send(message);
-
-        // Insert notification record
-        await supabase.from('Notifications').insert({
-          user_id: todo.user_id,
-          noti_title: 'Todo Deadline',
-          noti_desc: `Your todo "${todo.title}" is now due!`,
-          created_at: new Date().toISOString(),
-        });
+          android:{
+            notification: {
+              channelId: "todo_reminders",
+              sound: "default",
+              defaultVibrateTimings: true,
+            },
+          },
+          data: {
+            todoId: todo.id.toString(),
+          },
+        };
+  
+        try {
+         
+          await admin.messaging().send(message);
+  
+          
+  
+         
+        } catch (sendError) {
+          console.error('Error sending notification:', sendError);
+        }
+      
+      }
+      // Insert notification record
+        // await supabase.from('Notifications').insert({
+        //   user_id: todo.user_id,
+        //   noti_title: 'Todo Deadline',
+        //   noti_desc: `Your todo "${todo.title}" is now due!`,
+        //   created_at: new Date().toISOString(),
+        // });
 
         // Update todo as notified
         await supabase.from('Todos').update({ is_noti_sent: true }).eq('id', todo.id);
-
-       
-      } catch (sendError) {
-        console.error('Error sending notification:', sendError);
-      }
     }
   }
 });
