@@ -5,7 +5,7 @@ import cron from 'node-cron';
 import dotenv from 'dotenv';
 
 dotenv.config();
-//Helper
+
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 
@@ -22,7 +22,7 @@ app.use(express.json());
 
 
 
-// Helper to convert deadline string ("4:44 AM") to today's Date object
+// to convert deadline string ("4:44 AM") to today's Date object
 function getTodayDateForTime(timeString) {
   //get time from string
   const [time, modifier] = timeString.split(' ');
@@ -112,6 +112,7 @@ cron.schedule('* * * * *', async () => {
         try {
          
           await admin.messaging().send(message);       
+         console.log("NOti sent");
          
         } catch (sendError) {
           console.error('Error sending notification:', sendError);
