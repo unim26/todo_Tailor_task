@@ -20,11 +20,7 @@ admin.initializeApp({
 const app = express();
 app.use(express.json());
 
-//root path it will be  used  for awake call
-app.use('/',(req,res) => {
-  console.log('Awake call from client');
-  res.status(200).send({"message":"Running"});
-});
+
 
 // Helper to convert deadline string ("4:44 AM") to today's Date object
 function getTodayDateForTime(timeString) {
@@ -49,6 +45,11 @@ function getTodayDateForTime(timeString) {
     return new Date(
       now.getFullYear(), now.getMonth(), now.getDate(),
       hours, minutes - dealyTime, 0, 0
+    );
+  }else{
+    return new Date(
+      now.getFullYear(), now.getMonth(), now.getDate(),
+      hours - 1, minutes, 0, 0
     );
   }
 }
@@ -110,10 +111,7 @@ cron.schedule('* * * * *', async () => {
   
         try {
          
-          await admin.messaging().send(message);
-  
-          
-  
+          await admin.messaging().send(message);       
          
         } catch (sendError) {
           console.error('Error sending notification:', sendError);
