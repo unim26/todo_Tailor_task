@@ -57,11 +57,17 @@ function getTodayDateForTime(timeString) {
 // Cron job to run every minute
 cron.schedule('* * * * *', async () => {
 
+  console.log("checking for todos");
+  
+
   const { data: todos, error } = await supabase
     .from('Todos')
     .select('id, title, user_id, deadline, is_noti_sent, is_completed,delay')
     .eq('is_completed', false)
     .eq('is_noti_sent', false);
+
+    console.log(todos);
+    
 
   if (error) {
     console.error('Error fetching todos:', error);
