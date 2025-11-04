@@ -9,7 +9,7 @@ dotenv.config();
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 
-//parsing json 
+//parsing json
 const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
 
 //intializing firebase admin
@@ -30,10 +30,10 @@ function getTodayDateForTime(timeString) {
   if (modifier === 'PM' && hours !== 12) hours += 12;
   if (modifier === 'AM' && hours === 12) hours = 0;
 
-  //get dealyTime from string 
+  //get dealyTime from string
   let [dealyTime, horm] = time.split(' ').map(Number);
 
-  const now = new Date();   
+  const now = new Date();
 
   //the given time will be as user wants to be get notified so we will set it one hour before so that we can notify user before an hour
   if(horm == 'H'){
@@ -58,7 +58,7 @@ function getTodayDateForTime(timeString) {
 cron.schedule('* * * * *', async () => {
 
   console.log("checking for todos");
-  
+
 
   const { data: todos, error } = await supabase
     .from('Todos')
@@ -67,7 +67,7 @@ cron.schedule('* * * * *', async () => {
     .eq('is_noti_sent', false);
 
     console.log(todos);
-    
+
 
   if (error) {
     console.error('Error fetching todos:', error);
@@ -94,14 +94,12 @@ cron.schedule('* * * * *', async () => {
         console.warn(`No FCM token for user_id ${todo.user_id}, skipping`);
         continue;
       }
-      
-      //we have arry of fcm tokens so loop over all fcm tokens and send to each
-      for(const fcmToken of user.fcm_token){
+
         const message = {
-          token: fcmToken,
+          token: user.fcm_token,
           notification: {
             title: '⏰ Todo Deadline!',
-            body: `⚡ Time’s ticking! Finish your todo -  ${todo.title} \n before it’s too late! ⏳`,
+            body: `⚡ Time’s ticking! Finish your task -  ${todo.title} \n before it’s too late! ⏳`,
           },
           android:{
             notification: {
@@ -114,17 +112,17 @@ cron.schedule('* * * * *', async () => {
             todoId: todo.id.toString(),
           },
         };
-  
+
         try {
-         
-          await admin.messaging().send(message);       
+
+          await admin.messaging().send(message);
          console.log("NOti sent");
-         
+
         } catch (sendError) {
           console.error('Error sending notification:', sendError);
         }
-      
-      }
+
+
       // Insert notification record
         // await supabase.from('Notifications').insert({
         //   user_id: todo.user_id,
