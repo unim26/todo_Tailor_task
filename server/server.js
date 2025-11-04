@@ -36,12 +36,12 @@ function getTodayDateForTime(timeString) {
   const now = new Date();
 
   //the given time will be as user wants to be get notified so we will set it one hour before so that we can notify user before an hour
-  if(horm == 'H'){
+  if(horm == 'Hour'){
     return new Date(
       now.getFullYear(), now.getMonth(), now.getDate(),
       hours - dealyTime, minutes, 0, 0
     );
-  } else if(horm == 'M'){
+  } else if(horm == 'Minutes'){
     return new Date(
       now.getFullYear(), now.getMonth(), now.getDate(),
       hours, minutes - dealyTime, 0, 0
