@@ -28,8 +28,8 @@ A full-stack application that helps users keep track of their tasks by sending p
 1. **Clone the repository**
 
 ```
-git clone https://github.com/unim26/todo_Tailor_task.git
-cd todo_Tailor_task
+git clone https://github.com/unim26/todo_app.git
+cd todo_app
 ```
 
 
